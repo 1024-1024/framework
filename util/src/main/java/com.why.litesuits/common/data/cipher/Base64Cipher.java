@@ -1,7 +1,7 @@
 package com.why.litesuits.common.data.cipher;
 
 
-import com.litesuits.common.assist.Base64;
+import com.why.litesuits.common.assist.Base64;
 
 /**
  * @author MaTianyu
