@@ -12,7 +12,7 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.provider.Settings;
 
-import com.why.util.ToastUtils;
+import com.why.utils.ToastUtils;
 
 import java.io.IOException;
 import java.util.List;

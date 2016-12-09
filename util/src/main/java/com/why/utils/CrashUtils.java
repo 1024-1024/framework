@@ -6,8 +6,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 
-import com.why.util.FileUtils;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

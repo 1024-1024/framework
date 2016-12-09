@@ -1,7 +1,5 @@
 package com.why.utils;
 
-import com.why.util.StringUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

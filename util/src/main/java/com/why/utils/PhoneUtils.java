@@ -13,7 +13,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Xml;
 
-import com.why.util.StringUtils;
+import com.why.utils.StringUtils;
 
 import org.xmlpull.v1.XmlSerializer;
 

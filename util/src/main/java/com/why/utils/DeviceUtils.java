@@ -9,8 +9,6 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
 
-import com.why.util.ShellUtils;
-
 import java.io.File;
 import java.net.NetworkInterface;
 import java.util.Collections;

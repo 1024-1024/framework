@@ -11,8 +11,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.provider.Settings;
 
-import com.why.util.StringUtils;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;

@@ -2,9 +2,6 @@ package com.why.utils;
 
 import android.content.Context;
 
-import com.why.util.FileUtils;
-import com.why.util.SDCardUtils;
-
 import java.io.File;
 
 /**

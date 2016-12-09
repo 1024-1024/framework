@@ -10,13 +10,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 
-import com.why.util.EncryptUtils;
-import com.why.util.FileUtils;
-import com.why.util.IntentUtils;
-import com.why.util.ProcessUtils;
-import com.why.util.ShellUtils;
-import com.why.util.StringUtils;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
