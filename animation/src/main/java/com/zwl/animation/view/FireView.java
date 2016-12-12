@@ -63,9 +63,6 @@ public class FireView extends View {
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             mStartPoint.x = (int) event.getX();
             mStartPoint.y = (int) event.getY();
-            clearAnimations();
-            resetControllerRadius();
-            postInvalidate();
         } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
         }
         return super.onTouchEvent(event);
