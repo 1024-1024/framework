@@ -25,7 +25,7 @@ public class FireView extends View {
     private Point mStartPoint;
     private Paint mPaint;
     private Path mPath;
-    private int mCircleRadius;
+    private int mCircleRadius = 300;
     private int[] mControllerRadius = new int[6];
     private List<ValueAnimator> animators = new ArrayList<ValueAnimator>();
     private double mStartAngle = Math.PI / 3;
@@ -51,9 +51,7 @@ public class FireView extends View {
         mPaint.setColor(Color.YELLOW);
         mPaint.setStyle(Paint.Style.FILL);
         mPath = new Path();
-        mCircleRadius = 300;
-        mControllerRadius = new int[]{320, 340, 360, 380, 400, 420};
-        mStartAngle = Math.random() * Math.PI / 6 + Math.PI / 6;
+        mControllerRadius = new int[]{400, 380, 360, 360, 380, 400};
     }
 
     @Override
@@ -61,16 +59,27 @@ public class FireView extends View {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             mStartPoint.x = (int) event.getX();
             mStartPoint.y = (int) event.getY();
+            resetControllerRadius();
         } else if (event.getAction() == MotionEvent.ACTION_MOVE) {
             mStartPoint.x = (int) event.getX();
             mStartPoint.y = (int) event.getY();
+            clearAnimations();
+            resetControllerRadius();
+            postInvalidate();
         } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
         }
-
-        resetControllerRadius();
-
         return super.onTouchEvent(event);
     }
+
+    private void clearAnimations() {
+        if (animators.size() > 0) {
+            for (int i = 0; i < animators.size() ; i ++) {
+                animators.get(i).cancel();
+            }
+        }
+        animators.clear();
+    }
+
 
     private void resetControllerRadius() {
         for (int i = 0 ; i < mControllerRadius.length; i ++ ) {
@@ -102,50 +111,50 @@ public class FireView extends View {
         mPath.reset();
         //开始位置
         mPath.moveTo(
-                (float) (mStartPoint.x + Math.cos(Math.PI / 3) * mCircleRadius),
-                (float) (mStartPoint.y - Math.sin(Math.PI / 3) * mCircleRadius)
+                (float) (mStartPoint.x + Math.cos(mStartAngle) * mCircleRadius),
+                (float) (mStartPoint.y - Math.sin(mStartAngle) * mCircleRadius)
         );
         //第一个控制点和第二个基准点
         mPath.quadTo(
-                (float) (mStartPoint.x + Math.sin(Math.PI / 3) * mControllerRadius[0]),
-                (float) (mStartPoint.y - Math.cos(Math.PI / 3) * mControllerRadius[0]),
+                (float) (mStartPoint.x + Math.sin(mStartAngle) * mControllerRadius[0]),
+                (float) (mStartPoint.y - Math.cos(mStartAngle) * mControllerRadius[0]),
                 (float) (mStartPoint.x + mCircleRadius),
                 (float) (mStartPoint.y)
         );
         //第二个控制点和第三个基准点
         mPath.quadTo(
-                (float) (mStartPoint.x + Math.sin(Math.PI / 3 ) * mControllerRadius[1]),
-                (float) (mStartPoint.y + Math.cos(Math.PI / 3 ) * mControllerRadius[1]),
-                (float) (mStartPoint.x + Math.cos(Math.PI / 3 ) * mCircleRadius),
-                (float) (mStartPoint.y + Math.sin(Math.PI / 3 ) * mCircleRadius)
+                (float) (mStartPoint.x + Math.sin(mStartAngle ) * mControllerRadius[1]),
+                (float) (mStartPoint.y + Math.cos(mStartAngle ) * mControllerRadius[1]),
+                (float) (mStartPoint.x + Math.cos(mStartAngle ) * mCircleRadius),
+                (float) (mStartPoint.y + Math.sin(mStartAngle ) * mCircleRadius)
         );
         //第三个控制点和第四个基准点
         mPath.quadTo(
                 (float) (mStartPoint.x),
                 (float) (mStartPoint.y + mControllerRadius[2]),
-                (float) (mStartPoint.x - Math.cos(Math.PI / 3 ) * mCircleRadius),
-                (float) (mStartPoint.y + Math.sin(Math.PI / 3) * mCircleRadius));
+                (float) (mStartPoint.x - Math.cos(mStartAngle ) * mCircleRadius),
+                (float) (mStartPoint.y + Math.sin(mStartAngle) * mCircleRadius));
 
         //第四个控制点和第五个基准点
         mPath.quadTo(
-                (float) (mStartPoint.x - Math.sin(Math.PI / 3) * mControllerRadius[3]),
-                (float) (mStartPoint.y + Math.cos(Math.PI / 3) * mControllerRadius[3]),
+                (float) (mStartPoint.x - Math.sin(mStartAngle) * mControllerRadius[3]),
+                (float) (mStartPoint.y + Math.cos(mStartAngle) * mControllerRadius[3]),
                 (float) (mStartPoint.x - mCircleRadius),
                 (float) (mStartPoint.y));
 
         //第五个控制点和第六个基准点
         mPath.quadTo(
-                (float) (mStartPoint.x - Math.sin(Math.PI / 3) * mControllerRadius[4]),
-                (float) (mStartPoint.y - Math.cos(Math.PI / 3) * mControllerRadius[4]),
-                (float) (mStartPoint.x - Math.cos(Math.PI / 3) * mCircleRadius),
-                (float) (mStartPoint.y - Math.sin(Math.PI / 3) * mCircleRadius));
+                (float) (mStartPoint.x - Math.sin(mStartAngle) * mControllerRadius[4]),
+                (float) (mStartPoint.y - Math.cos(mStartAngle) * mControllerRadius[4]),
+                (float) (mStartPoint.x - Math.cos(mStartAngle) * mCircleRadius),
+                (float) (mStartPoint.y - Math.sin(mStartAngle) * mCircleRadius));
 
         //第六个控制点和第1个基准点
         mPath.quadTo(
                 (float) (mStartPoint.x),
                 (float) (mStartPoint.y - mControllerRadius[5]),
-                (float) (mStartPoint.x + Math.cos(Math.PI / 3) * mCircleRadius),
-                (float) (mStartPoint.y - Math.sin(Math.PI / 3) * mCircleRadius));
+                (float) (mStartPoint.x + Math.cos(mStartAngle) * mCircleRadius),
+                (float) (mStartPoint.y - Math.sin(mStartAngle) * mCircleRadius));
 
         canvas.drawPath(mPath, mPaint);
     }
