@@ -1,1 +1,1 @@
-include ':app', ':util', ':test', ':animation', ':designpattern'
+include ':app', ':util', ':test', ':animation', ':designpattern', ':dbutils'
