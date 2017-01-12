@@ -137,5 +137,6 @@ public abstract class BeanDao<T extends IBean> {
 
     public synchronized void init(Class clazz, Class cls) {
 
+
     }
 }
