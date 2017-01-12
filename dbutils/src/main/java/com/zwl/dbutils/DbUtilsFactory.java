@@ -23,13 +23,6 @@ public class DbUtilsFactory {
         dbFile = new File(Environment.getDataDirectory().getAbsolutePath());
         sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase(dbFile, null);
         daoHashMap = new HashMap<Class, BeanDao>();
-        createTable();
-    }
-
-    private void createTable() {
-
-
-
     }
 
     public static DbUtilsFactory getInstance() {
@@ -53,13 +46,14 @@ public class DbUtilsFactory {
     }
 
 
-    public BeanDao getDao(Class clazz) {
+    public <T extends BeanDao> T getDao(Class clazz, Class cls) {
         if (daoHashMap.containsKey(clazz)) {
-            return daoHashMap.get(clazz);
+            return (T)daoHashMap.get(clazz);
         }
         try {
-            BeanDao beanDao = (BeanDao) clazz.newInstance();
+            T beanDao = (T) clazz.newInstance();
             daoHashMap.put(clazz, beanDao);
+            beanDao.init(clazz, cls);
             return beanDao;
         } catch (InstantiationException e) {
             e.printStackTrace();

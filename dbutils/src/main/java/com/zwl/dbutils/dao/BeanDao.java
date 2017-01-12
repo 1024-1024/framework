@@ -35,35 +35,35 @@ public abstract class BeanDao<T extends IBean> {
     private void endDatabase() {
         database.endTransaction();
     }
-    protected long save(T t) {
+    public long save(T t) {
         startDatabase(t);
         long index = database.insert(t.getClass().getName(), null, contentValues);
         endDatabase();
         return index;
     }
 
-    protected long update(T t) {
+    public long update(T t) {
         startDatabase(t);
         long index = database.update(t.getClass().getName(), contentValues, null, null);
         endDatabase();
         return index;
     }
 
-    protected long delete(T t) {
+    public long delete(T t) {
         startDatabase(t);
         long index = database.delete(t.getClass().getName(), null, null);
         endDatabase();
         return index;
     }
 
-    protected List<T> queryByCondition(String sql) {
+    public List<T> queryByCondition(String sql) {
         database = DbUtilsFactory.getInstance().getSqlLiteDatabase();
         database.beginTransaction();
         database.endTransaction();
         return null;
     }
 
-    protected  ContentValues createContentValues(T t) {
+    public  ContentValues createContentValues(T t) {
         ContentValues contentValues = new ContentValues();
         Set<String> keys = fieldHashMap.keySet();
         Iterator iterator = keys.iterator();
@@ -99,9 +99,9 @@ public abstract class BeanDao<T extends IBean> {
         return contentValues;
     }
 
-    protected abstract void otherType(ContentValues contentValues);
+    public abstract void otherType(ContentValues contentValues);
 
-    protected String createSql(T t) {
+    public String createSql(T t) {
         DbTable dbTable = t.getClass().getAnnotation(DbTable.class);
         if (dbTable != null) {
             StringBuffer sql = new StringBuffer();
@@ -135,4 +135,7 @@ public abstract class BeanDao<T extends IBean> {
         return null;
     }
 
+    public synchronized void init(Class clazz, Class cls) {
+
+    }
 }

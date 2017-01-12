@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     }
 
     public void save(View view) {
-        UserDao dao = (UserDao) DbUtilsFactory.getInstance().getDao(UserDao.class);
+        UserDao dao = DbUtilsFactory.getInstance().getDao(UserDao.class);
         dao.save(new User());
     }
     public void delete(View view) {}
