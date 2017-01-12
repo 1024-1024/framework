@@ -13,7 +13,7 @@ public class DaoManagerFactory {
     private SQLiteDatabase sqLiteDatabase;
 
     public static DaoManagerFactory instanse = new DaoManagerFactory(new File(Environment
-            .getExternalStorageDirectory(), "logic.db"));
+            .getExternalStorageDirectory(), "zwl.db"));
 
     public static DaoManagerFactory getInstance() {
         return instanse;
