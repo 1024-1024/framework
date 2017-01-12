@@ -169,14 +169,10 @@ public abstract class BaseDao<T> implements IBaseDao<T> {
         if (startIndex != null && limit != null) {
             limitString = startIndex + " , " + limit;
         }
-
         Condition condition = new Condition(values);
-
         Cursor cursor = null;
-
         cursor = database.query(tableName, null, condition.getWhereClause(), condition
                 .getWhereArgs(), null, null, oderBy, limitString);
-
         List<T> result = getResult(cursor, where);
         cursor.close();
         return result;
@@ -198,28 +194,23 @@ public abstract class BaseDao<T> implements IBaseDao<T> {
                     Map.Entry<String, Field> entry = (Map.Entry<String, Field>) iterator.next();
                     String columnName = entry.getKey();
                     Field field = entry.getValue();
-
-                    Integer colmunIndex = cursor.getColumnIndex(columnName);
-
+                    Integer columnIndex = cursor.getColumnIndex(columnName);
                     Class type = field.getType();
-
-                    if (colmunIndex != -1) {
+                    if (columnIndex != -1) {
                         if (type == String.class) {
-                            field.set(item, cursor.getString(colmunIndex));
+                            field.set(item, cursor.getString(columnIndex));
                         } else if (type == Integer.class) {
-                            field.set(item, cursor.getInt(colmunIndex));
+                            field.set(item, cursor.getInt(columnIndex));
                         } else if (type == Long.class) {
-                            field.set(item, cursor.getLong(colmunIndex));
+                            field.set(item, cursor.getLong(columnIndex));
                         } else if (type == Double.class) {
-                            field.set(item, cursor.getDouble(colmunIndex));
+                            field.set(item, cursor.getDouble(columnIndex));
                         } else if (type == byte[].class) {
-                            field.set(item, cursor.getBlob(colmunIndex));
+                            field.set(item, cursor.getBlob(columnIndex));
                         } else {
                             continue;
                         }
                     }
-
-
                 }
                 list.add(item);
             } catch (InstantiationException e) {
@@ -227,28 +218,21 @@ public abstract class BaseDao<T> implements IBaseDao<T> {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-
-
         }
         return list;
     }
 
     @Override
     public int batch(List<T> list) {
-
-
         return 0;
     }
 
     @Override
     public int delete(T where) {
         Map values = getValues(where);
-
         Condition condition = new Condition(values);
-
         int result = database.delete(tableName, condition.getWhereClause(), condition
                 .getWhereArgs());
-
         return result;
     }
 
@@ -273,12 +257,9 @@ public abstract class BaseDao<T> implements IBaseDao<T> {
             this.whereClause = stringBuilder.toString();
             this.WhereArgs = (String[]) list.toArray(new String[list.size()]);
         }
-
         public String getWhereClause() {
             return whereClause;
         }
-
-
         public String[] getWhereArgs() {
             return WhereArgs;
         }
