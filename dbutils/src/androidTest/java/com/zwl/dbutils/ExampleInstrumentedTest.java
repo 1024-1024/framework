@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() throws Exception {
-        // Context of the app under test.
+        // Context of the appContext under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.zwl.dbutils.test", appContext.getPackageName());
