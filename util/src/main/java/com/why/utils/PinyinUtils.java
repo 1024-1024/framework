@@ -70,7 +70,7 @@ public class PinyinUtils {
             "chan", "chang", "chao", "che",
             "chen", "cheng", "chi", "chong", "chou", "chu", "chuai", "chuan", "chuang", "chui", "chun", "chuo", "ci",
             "cong", "cou", "cu", "cuan",
-            "cui", "cun", "cuo", "da", "dai", "dan", "dang", "dao", "de", "deng", "di", "dian", "diao", "die",
+            "cui", "cun", "cuo", "da", "dai", "dan", "dang", "com.zwl.dbutils.dao", "de", "deng", "di", "dian", "diao", "die",
             "ding", "diu", "dong", "dou", "du",
             "duan", "dui", "dun", "duo", "e", "en", "er", "fa", "fan", "fang", "fei", "fen", "feng", "fo", "fou",
             "fu", "ga", "gai", "gan", "gang",

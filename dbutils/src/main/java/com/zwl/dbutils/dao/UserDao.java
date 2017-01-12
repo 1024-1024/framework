@@ -1,16 +1,8 @@
 package com.zwl.dbutils.dao;
 
-import android.content.ContentValues;
-
-import com.zwl.dbutils.bean.User;
-
-/**
- * Created by weilongzhang on 17/1/10.
- */
-
-public class UserDao extends BeanDao<User> {
-
+public class UserDao extends BaseDao {
     @Override
-    protected void otherType(ContentValues contentValues) {
+    public String createTable() {
+        return "create table if not exists tb_user(name varchar(20),password varchar(10),age int )";
     }
 }

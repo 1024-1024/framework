@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.zwl.dbutils.bean.User;
-import com.zwl.dbutils.dao.UserDao;
-
 /**
  * Created by weilongzhang on 17/1/10.
  */
@@ -20,8 +17,7 @@ public class MainActivity extends Activity {
     }
 
     public void save(View view) {
-        UserDao dao = DbUtilsFactory.getInstance().getDao(UserDao.class);
-        dao.save(new User());
+
     }
     public void delete(View view) {}
     public void update(View view) {}

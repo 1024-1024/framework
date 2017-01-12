@@ -1,15 +1,12 @@
-package com.zwl.dbutils.anotation;
+package com.zwl.dbutils.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * Created by weilongzhang on 17/1/10.
- */
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface DbField {
-    String value() default "";
+public @interface DbTable {
+    String value();
 }
