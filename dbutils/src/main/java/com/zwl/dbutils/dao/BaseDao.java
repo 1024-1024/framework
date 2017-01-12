@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import com.zwl.dbutils.annotation.DbField;
 import com.zwl.dbutils.annotation.DbTable;
+import com.zwl.dbutils.exception.DbTableMissingException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -23,10 +24,19 @@ public abstract class BaseDao<T> implements IBaseDao<T> {
     private Class<T> entityClass;
     private Map<String, Field> cacheFieldMap;
 
-    public synchronized boolean init(Class<T> entity, SQLiteDatabase sqLiteDatabase) {
+    public synchronized boolean init(Class<T> entity, SQLiteDatabase sqLiteDatabase) throws
+            DbTableMissingException {
         if (!isInit) {
             this.database = sqLiteDatabase;
-            this.tableName = entity.getAnnotation(DbTable.class).value();
+            if (entity.getAnnotation(DbTable.class) == null) {
+                throw new DbTableMissingException("table annotation missing!");
+            }
+
+            if (TextUtils.isEmpty(entity.getAnnotation(DbTable.class).value())) {
+                this.tableName = entity.getSimpleName();
+            } else {
+                this.tableName = entity.getAnnotation(DbTable.class).value();
+            }
             this.entityClass = entity;
             if (!database.isOpen()) {
                 return false;
@@ -34,7 +44,6 @@ public abstract class BaseDao<T> implements IBaseDao<T> {
             if (!TextUtils.isEmpty(createTable())) {
                 database.execSQL(createTable());
             }
-
             cacheFieldMap = new HashMap<>();
             initCacheMap();
             isInit = true;
@@ -54,24 +63,26 @@ public abstract class BaseDao<T> implements IBaseDao<T> {
             }
 
             for (String columnName : columnNames) {
-                Field colmunToFiled = null;
+                Field columnToFiled = null;
                 //开始找对应关系
                 for (Field field : columnFields) {
                     String fieldName = null;
                     if (field.getAnnotation(DbField.class) != null) {
-                        fieldName = field.getAnnotation(DbField.class).value();
+                        if (TextUtils.isEmpty(field.getAnnotation(DbField.class).value())) {
+                            fieldName = field.getName();
+                        } else {
+                            fieldName = field.getAnnotation(DbField.class).value();
+                        }
                     } else {
                         fieldName = field.getName();
                     }
-
                     if (columnName.equals(fieldName)) {
-                        colmunToFiled = field;
+                        columnToFiled = field;
                         break;
                     }
                 }
-
-                if (colmunToFiled != null) {
-                    cacheFieldMap.put(columnName, colmunToFiled);
+                if (columnToFiled != null) {
+                    cacheFieldMap.put(columnName, columnToFiled);
                 }
             }
         } catch (Exception e) {
@@ -113,9 +124,13 @@ public abstract class BaseDao<T> implements IBaseDao<T> {
         while (fieldsIterator.hasNext()) {
             Field colmunToFiled = (Field) fieldsIterator.next();
             String cacheKey = null;
-            String cacheVuale = null;
+            String cacheValue = null;
             if (colmunToFiled.getAnnotation(DbField.class) != null) {
-                cacheKey = colmunToFiled.getAnnotation(DbField.class).value();
+                if (TextUtils.isEmpty(colmunToFiled.getAnnotation(DbField.class).value())) {
+                    cacheKey = colmunToFiled.getName();
+                } else {
+                    cacheKey = colmunToFiled.getAnnotation(DbField.class).value();
+                }
             } else {
                 cacheKey = colmunToFiled.getName();
             }
@@ -123,11 +138,11 @@ public abstract class BaseDao<T> implements IBaseDao<T> {
                 if (null == colmunToFiled.get(entity)) {
                     continue;
                 }
-                cacheVuale = colmunToFiled.get(entity).toString();
+                cacheValue = colmunToFiled.get(entity).toString();
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            result.put(cacheKey, cacheVuale);
+            result.put(cacheKey, cacheValue);
         }
         return result;
     }
@@ -162,12 +177,12 @@ public abstract class BaseDao<T> implements IBaseDao<T> {
         cursor = database.query(tableName, null, condition.getWhereClause(), condition
                 .getWhereArgs(), null, null, oderBy, limitString);
 
-        List<T> result = getReslut(cursor, where);
+        List<T> result = getResult(cursor, where);
         cursor.close();
         return result;
     }
 
-    private List<T> getReslut(Cursor cursor, T where) {
+    private List<T> getResult(Cursor cursor, T where) {
         ArrayList list = new ArrayList();
         Object item;
         /*  遍历游标所持有的数据
