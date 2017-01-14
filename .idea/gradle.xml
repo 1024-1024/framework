@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/dbutils" />
             <option value="$PROJECT_DIR$/designpattern" />
+            <option value="$PROJECT_DIR$/http" />
             <option value="$PROJECT_DIR$/test" />
             <option value="$PROJECT_DIR$/util" />
           </set>
