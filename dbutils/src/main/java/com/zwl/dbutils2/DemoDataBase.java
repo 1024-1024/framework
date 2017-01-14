@@ -14,6 +14,10 @@ public class DemoDataBase extends DataBaseHelper {
     public static final String DATABASE_NAME = "test.db";
     public static final int DATABASE_VERSION = 1;
 
+    public DemoDataBase(Context context) {
+        this(context, DATABASE_NAME, DATABASE_VERSION);
+    }
+
 
     public DemoDataBase(Context context, String name, int version) {
         super(App.appContext, DATABASE_NAME, DATABASE_VERSION);
