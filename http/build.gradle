@@ -32,6 +32,4 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
-    compile 'com.alibaba:fastjson:1.2.23'
-    compile 'httpcomponents-httpcore:httpcore:4.0-alpha6'
 }
