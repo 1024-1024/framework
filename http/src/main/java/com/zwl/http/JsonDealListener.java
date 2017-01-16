@@ -3,6 +3,7 @@ package com.zwl.http;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.alibaba.fastjson.JSON;
 import com.zwl.http.interfaces.IDataListener;
 import com.zwl.http.interfaces.IHttpListener;
 
@@ -17,84 +18,68 @@ import java.io.InputStreamReader;
  * Created by Administrator on 2017/1/13 0013.
  */
 
-public class JsonDealLisener<M> implements IHttpListener {
-    private Class<M> responceClass;
+public class JsonDealListener<M> implements IHttpListener {
+    private Class<M> responseClass;
     private IDataListener<M> dataListener;
     /**
      * 获取主线程的Handle
      * 通过handle切换至主线程
      */
-    Handler handler=new Handler(Looper.getMainLooper());
+    Handler handler = new Handler(Looper.getMainLooper());
 
-    public JsonDealLisener(Class<M> responceClass, IDataListener<M> dataListener) {
-        this.responceClass = responceClass;
+    public JsonDealListener(Class<M> responseClass, IDataListener<M> dataListener) {
+        this.responseClass = responseClass;
         this.dataListener = dataListener;
     }
 
     @Override
     public void onSuccess(HttpEntity httpEntity) {
-        InputStream inputStream=null;
+        InputStream inputStream = null;
         try {
-            inputStream=httpEntity.getContent();
-            String content=getContent(inputStream);
-            final M responce= JSON.parseObject(content,responceClass);
+            inputStream = httpEntity.getContent();
+            String content = getContent(inputStream);
+            final M response = JSON.parseObject(content, responseClass);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    dataListener.onSuccess(responce);
+                    dataListener.onSuccess(response);
                 }
             });
         } catch (IOException e) {
-            dataListener.onErro();
+            dataListener.onFail();
         }
 
     }
 
     @Override
-    public void onErro() {
-        dataListener.onErro();
+    public void onFail() {
+        dataListener.onFail();
     }
 
-
     private String getContent(InputStream inputStream) {
-        String content=null;
+        String content = null;
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
             StringBuilder sb = new StringBuilder();
-
             String line = null;
-
             try {
-
                 while ((line = reader.readLine()) != null) {
-
                     sb.append(line + "\n");
-
                 }
-
             } catch (IOException e) {
-
                 System.out.println("Error=" + e.toString());
-                dataListener.onErro();
+                dataListener.onFail();
             } finally {
-
                 try {
-
                     inputStream.close();
-
                 } catch (IOException e) {
-
                     System.out.println("Error=" + e.toString());
-
                 }
-
             }
             return sb.toString();
-
         } catch (Exception e) {
             e.printStackTrace();
-            dataListener.onErro();
+            dataListener.onFail();
         }
         return content;
     }

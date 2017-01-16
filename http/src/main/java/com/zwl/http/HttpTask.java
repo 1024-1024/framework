@@ -9,13 +9,13 @@ import com.zwl.http.interfaces.IHttpService;
 
 public class HttpTask<T> implements Runnable {
     private IHttpService httpService;
-    public HttpTask(RequestHolder<T> requestHolder)
-    {
-        httpService= requestHolder.getHttpService();
+
+    public HttpTask(RequestHolder<T> requestHolder) {
+        httpService = requestHolder.getHttpService();
         httpService.setHttpListener(requestHolder.getHttpListener());
         httpService.setUrl(requestHolder.getUrl());
-        T request= requestHolder.getRequestInfo();
-        String requestInfo= request.toString();
+        T request = requestHolder.getRequestInfo();
+        String requestInfo = request.toString();
 
         try {
             httpService.setRequestData(requestInfo.getBytes("UTF-8"));

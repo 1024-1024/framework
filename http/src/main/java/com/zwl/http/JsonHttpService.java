@@ -21,7 +21,7 @@ import java.io.IOException;
 public class JsonHttpService implements IHttpService {
     private IHttpListener httpListener;
 
-    private HttpClient httpClient=new DefaultHttpClient();
+    private HttpClient httpClient = new DefaultHttpClient();
     private HttpPost httpPost;
     private String url;
 
@@ -29,19 +29,20 @@ public class JsonHttpService implements IHttpService {
     /**
      * httpClient获取网络的回调
      */
-    private HttpRespnceHandler httpRespnceHandler=new HttpRespnceHandler();
+    private HttpResponseHandler httpResponseHandler = new HttpResponseHandler();
+
     @Override
     public void setUrl(String url) {
-        this.url=url;
+        this.url = url;
     }
 
     @Override
     public void execute() {
-        httpPost=new HttpPost(url);
-        ByteArrayEntity byteArrayEntity=new ByteArrayEntity(requestDate);
+        httpPost = new HttpPost(url);
+        ByteArrayEntity byteArrayEntity = new ByteArrayEntity(requestDate);
         httpPost.setEntity(byteArrayEntity);
         try {
-            httpClient.execute(httpPost,httpRespnceHandler);
+            httpClient.execute(httpPost, httpResponseHandler);
         } catch (IOException e) {
             httpListener.onFail();
         }
@@ -49,24 +50,22 @@ public class JsonHttpService implements IHttpService {
 
     @Override
     public void setHttpListener(IHttpListener httpListener) {
-        this.httpListener=httpListener;
+        this.httpListener = httpListener;
     }
 
     @Override
     public void setRequestData(byte[] requestData) {
-         this.requestDate=requestData;
+        this.requestDate = requestData;
     }
-    private class HttpRespnceHandler extends BasicResponseHandler
-    {
+
+    private class HttpResponseHandler extends BasicResponseHandler {
         @Override
         public String handleResponse(HttpResponse response) throws ClientProtocolException {
             //响应吗
-            int code=response.getStatusLine().getStatusCode();
-            if(code==200)
-            {
+            int code = response.getStatusLine().getStatusCode();
+            if (code == 200) {
                 httpListener.onSuccess(response.getEntity());
-            }else
-            {
+            } else {
                 httpListener.onFail();
             }
 
