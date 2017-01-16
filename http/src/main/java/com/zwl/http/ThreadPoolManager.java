@@ -37,26 +37,26 @@ public class ThreadPoolManager {
         @Override
         public void run() {
             while (true) {
-                FutureTask futrueTask = null;
+                FutureTask futureTask = null;
 
                 try {
                     /**
                      * 阻塞式函数
                      */
                     Log.i(TAG, "等待队列     " + taskQuene.size());
-                    futrueTask = (FutureTask) taskQuene.take();
+                    futureTask = (FutureTask) taskQuene.take();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (futrueTask != null) {
-                    threadPoolExecutor.execute(futrueTask);
+                if (futureTask != null) {
+                    threadPoolExecutor.execute(futureTask);
                 }
                 Log.i(TAG, "线程池大小      " + threadPoolExecutor.getPoolSize());
             }
         }
     };
 
-    public <T> void execte(FutureTask<T> futureTask) throws InterruptedException {
+    public <T> void execute(FutureTask<T> futureTask) throws InterruptedException {
         taskQuene.put(futureTask);
     }
 

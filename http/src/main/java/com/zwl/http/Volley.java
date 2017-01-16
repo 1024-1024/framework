@@ -26,7 +26,7 @@ public class Volley {
         requestHolder.setHttpListener(httpListener);
         HttpTask<T> httpTask = new HttpTask<>(requestHolder);
         try {
-            ThreadPoolManager.getInstance().execte(new FutureTask<Object>(httpTask, null));
+            ThreadPoolManager.getInstance().execute(new FutureTask<Object>(httpTask, null));
         } catch (InterruptedException e) {
             dataListener.onFail();
         }
