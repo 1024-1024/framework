@@ -18,7 +18,7 @@ public class ThreadPoolManager {
     private static final String TAG = "dongnao";
     private static ThreadPoolManager instance = new ThreadPoolManager();
 
-    private LinkedBlockingQueue<Future<?>> taskQuene = new LinkedBlockingQueue<>();
+    private LinkedBlockingQueue<Future<?>> taskQueue = new LinkedBlockingQueue<>();
 
     private ThreadPoolExecutor threadPoolExecutor;
 
@@ -38,13 +38,12 @@ public class ThreadPoolManager {
         public void run() {
             while (true) {
                 FutureTask futureTask = null;
-
                 try {
                     /**
                      * 阻塞式函数
                      */
-                    Log.i(TAG, "等待队列     " + taskQuene.size());
-                    futureTask = (FutureTask) taskQuene.take();
+                    Log.i(TAG, "等待队列     " + taskQueue.size());
+                    futureTask = (FutureTask) taskQueue.take();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -57,14 +56,14 @@ public class ThreadPoolManager {
     };
 
     public <T> void execute(FutureTask<T> futureTask) throws InterruptedException {
-        taskQuene.put(futureTask);
+        taskQueue.put(futureTask);
     }
 
     private RejectedExecutionHandler handler = new RejectedExecutionHandler() {
         @Override
         public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
             try {
-                taskQuene.put(new FutureTask<Object>(r, null) {
+                taskQueue.put(new FutureTask<Object>(r, null) {
                 });
             } catch (InterruptedException e) {
                 e.printStackTrace();
