@@ -7,7 +7,7 @@ import com.zwl.http.interfaces.IHttpService;
  * Created by Administrator on 2017/1/13 0013.
  */
 
-public class RequestHodler<T> {
+public class RequestHolder<T> {
     /**
      * 执行下载类
      */

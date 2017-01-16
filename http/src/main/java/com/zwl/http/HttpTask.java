@@ -3,20 +3,18 @@ package com.zwl.http;
 
 import com.zwl.http.interfaces.IHttpService;
 
-import org.json.JSONObject;
-
 /**
  * Created by Administrator on 2017/1/13 0013.
  */
 
 public class HttpTask<T> implements Runnable {
     private IHttpService httpService;
-    public HttpTask(RequestHodler<T> requestHodler)
+    public HttpTask(RequestHolder<T> requestHolder)
     {
-        httpService=requestHodler.getHttpService();
-        httpService.setHttpListener(requestHodler.getHttpListener());
-        httpService.setUrl(requestHodler.getUrl());
-        T request=requestHodler.getRequestInfo();
+        httpService= requestHolder.getHttpService();
+        httpService.setHttpListener(requestHolder.getHttpListener());
+        httpService.setUrl(requestHolder.getUrl());
+        T request= requestHolder.getRequestInfo();
         String requestInfo= request.toString();
 
         try {
@@ -29,6 +27,6 @@ public class HttpTask<T> implements Runnable {
 
     @Override
     public void run() {
-        httpService.excute();
+        httpService.execute();
     }
 }
