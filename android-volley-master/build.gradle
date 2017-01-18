@@ -44,8 +44,8 @@ dependencies {
 
 
 android {
-    compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
-    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    compileSdkVersion 24
+    buildToolsVersion '25.0.1'
 
     defaultConfig {
         minSdkVersion 8
@@ -56,6 +56,8 @@ android {
         quiet true
         abortOnError false
     }
+
+    useLibrary 'org.apache.http.legacy'
 }
 
 apply from: 'https://raw.github.com/mcxiaoke/gradle-mvn-push/master/jar.gradle'
