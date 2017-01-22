@@ -3,6 +3,7 @@ package com.zwl.http;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.alibaba.fastjson.JSON;
 import com.zwl.http.interfaces.IDataListener;
 import com.zwl.http.interfaces.IHttpListener;
 

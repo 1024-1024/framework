@@ -1,1 +1,1 @@
-include ':app', ':util', ':test', ':animation', ':designpattern', ':dbutils', ':http', ':android-volley-master'
+include ':app', ':util', ':test', ':animation', ':designpattern', ':dbutils', ':http', ':android-volley-master', ':widget'
