@@ -15,9 +15,17 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent">
+        <TextView
+            android:onClick="addText"
+            android:text="add TextView"
+            android:gravity="center"
+            android:textColor="@color/selector_color"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
         <Button
             android:onClick="add"
             android:text="add"
+            android:textColor="@color/selector_color"
             android:layout_width="match_parent"
             android:layout_height="50dp"/>
         <com.zwl.widget.AutoBreakLayout

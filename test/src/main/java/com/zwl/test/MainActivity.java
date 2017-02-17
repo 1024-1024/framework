@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         scrollView.setFillViewport(true);
 
     }
+    public void addText(View view) {
+
+    }
 
     public void add(View view) {
         TextView textView = new TextView(this);
