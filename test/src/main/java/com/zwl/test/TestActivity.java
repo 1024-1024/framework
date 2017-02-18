@@ -1,12 +1,11 @@
 package com.zwl.test;
 
 import android.app.Activity;
-import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
+import com.why.litesuits.common.utils.DisplayUtil;
 import com.zwl.widget.MultiAutoBreakLayout;
 
 /**
@@ -15,50 +14,36 @@ import com.zwl.widget.MultiAutoBreakLayout;
 
 public class TestActivity extends Activity {
 
-    private MultiAutoBreakLayout layout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test);
 
-        layout = (MultiAutoBreakLayout) this.findViewById(R.id.layout);
-        layout.post(new Runnable() {
-            @Override
-            public void run() {
-                TextView textView = new TextView(getApplication());
-                textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams
-                        .WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                textView.setText
-                        ("jfaoiwejfpoaiwjefoajweofijawoeifjwoieijfoiwejfoawijfaoiwejfpoaiwjefoajweofijawoeifjwoieijfoiwejfoawi");
-                textView.setPadding(30, 30, 30, 30);
-                textView.setBackgroundColor(Color.RED);
-                Log.d("zwl", "(textView.getPaint().measureText(textView.getText().toString()):" +
-                        (textView.getPaint().measureText(textView.getText().toString())));
-                Log.d("zwl", "textView.getPaddingLeft():" + textView.getPaddingLeft());
-                int l = (int) (textView.getPaint().measureText(textView.getText().toString()) +
-                        textView.getPaddingLeft() + textView.getPaddingRight());
-                if (l > 1090) {
-                    int count = 0;
-                    for (int i = 0; i < textView.getText().toString().length(); i ++) {
-                        count += textView.getPaint().measureText(textView.getText().toString(), i, i+1);
-                        if (count == (l - textView.getPaddingLeft() - textView.getPaddingRight())) {
-
-                        }
+        MultiAutoBreakLayout myViewGroup = (MultiAutoBreakLayout) this.findViewById(R.id.layout);
+        for (int i = 0; i < 3; i++) {
+            Button button = null;
+            if (i % 2 == 0) {
+                button = new Button(this);
+                button.setText("偶数" + i);
+            } else {
+                String text = "这是一个非常长的句子，请仔细看好会再那里换行，这个很重要的" + i;
+                button = new Button(this);
+                StringBuilder builder = new StringBuilder();
+                Paint paint = button.getPaint();
+                int length = 0;
+                for (int j = 0; j < text.length(); j++) {
+                    if (length + 200> DisplayUtil.getDisplayMetrics(getApplication()).widthPixels) {
+                        builder.append("\n");
+                        length = 0;
+                    } else {
+                        length += paint.measureText(text.toCharArray(), j, 1);
                     }
-
+                    builder.append(text.charAt(j));
                 }
-                layout.addView(textView);
-
-                TextView textView1 = new TextView(getApplication());
-                textView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams
-                        .WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                textView1.setText("jfaoiwejfpoaiwjefoajwe");
-                textView1.setPadding(10, 10, 10, 10);
-                textView1.setBackgroundColor(Color.GREEN);
-                layout.addView(textView1);
+                button.setText(builder.toString());
             }
-        });
+            myViewGroup.addView(button);
+        }
 
     }
 }
