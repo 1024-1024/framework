@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.zwl.animation.R;
 
 /**
  * Created by weilongzhang on 17/3/9.
@@ -16,7 +17,9 @@ import com.nineoldandroids.animation.ObjectAnimator;
 
 public class BubbleUpViewGroup extends RelativeLayout {
 
-    private int count = 20;
+    private int count = 30;
+
+    private boolean destroy = false;
 
     public BubbleUpViewGroup(Context context) {
         super(context);
@@ -26,9 +29,10 @@ public class BubbleUpViewGroup extends RelativeLayout {
         super(context, attrs);
     }
 
+
     @Override
-    public void onWindowFocusChanged(boolean hasWindowFocus) {
-        super.onWindowFocusChanged(hasWindowFocus);
+    protected void onFinishInflate() {
+        super.onFinishInflate();
         init();
     }
 
@@ -42,15 +46,13 @@ public class BubbleUpViewGroup extends RelativeLayout {
         final View dot = new View(getContext());
         RelativeLayout.LayoutParams lp = new LayoutParams(8, 8);
         lp.leftMargin = (int) (Math.random() * this.getMeasuredWidth());
-        lp.bottomMargin = 8;
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         dot.setLayoutParams(lp);
         dot.setBackgroundColor(Color.RED);
-        dot.setVisibility(GONE);
         addView(dot);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(ObjectAnimator.ofFloat(dot, "translationY", 0, -this.getMeasuredHeight()
-        ), ObjectAnimator.ofFloat(dot, "alpha", 1, 0));
+        ), ObjectAnimator.ofFloat(dot, "alpha", 0, 1, 0));
         set.setDuration(1000);
         set.setStartDelay((long) (Math.random() * 1000));
         set.addListener(new Animator.AnimatorListener() {
@@ -61,6 +63,8 @@ public class BubbleUpViewGroup extends RelativeLayout {
 
             @Override
             public void onAnimationEnd(Animator animator) {
+                if (destroy)
+                    return;
                 dot.clearAnimation();
                 BubbleUpViewGroup.this.removeView(dot);
                 startBubbleUpView();
@@ -77,4 +81,14 @@ public class BubbleUpViewGroup extends RelativeLayout {
         set.start();
     }
 
+    public void clear() {
+        destroy = true;
+        int count = this.getChildCount();
+        if (count > 0) {
+            for (int i = 0 ; i < count; i ++) {
+                getChildAt(i).clearAnimation();
+            }
+        }
+        this.removeAllViews();
+    }
 }
