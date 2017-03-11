@@ -11,4 +11,9 @@
         android:layout_width="100dp"
         android:layout_height="70dp">
     </com.zwl.animation.view.BubbleUpViewGroup>
+
+
+    <com.zwl.animation.view.BubbleView
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
 </LinearLayout>

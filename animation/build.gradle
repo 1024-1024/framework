@@ -29,4 +29,5 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile files('libs/nineoldandroids.jar')
+    compile project(':util')
 }

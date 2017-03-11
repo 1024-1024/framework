@@ -1,15 +1,14 @@
 package com.zwl.animation.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.zwl.animation.R;
+import com.why.utils.SizeUtils;
+
 
 /**
  * Created by weilongzhang on 17/3/9.
@@ -17,7 +16,7 @@ import com.zwl.animation.R;
 
 public class BubbleUpViewGroup extends RelativeLayout {
 
-    private int count = 30;
+    private int count = 50;
 
     private boolean destroy = false;
 
@@ -43,19 +42,27 @@ public class BubbleUpViewGroup extends RelativeLayout {
     }
 
     private void startBubbleUpView() {
-        final View dot = new View(getContext());
-        RelativeLayout.LayoutParams lp = new LayoutParams(8, 8);
+        final BubbleView dot = new BubbleView(getContext());
+        RelativeLayout.LayoutParams lp = new LayoutParams(SizeUtils.dp2px(getContext(), 4),
+                SizeUtils.dp2px(getContext(), 4));
         lp.leftMargin = (int) (Math.random() * this.getMeasuredWidth());
         lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         dot.setLayoutParams(lp);
-        dot.setBackgroundColor(Color.RED);
         addView(dot);
         AnimatorSet set = new AnimatorSet();
-        set.playTogether(ObjectAnimator.ofFloat(dot, "translationY", 0, -this.getMeasuredHeight()
-        ), ObjectAnimator.ofFloat(dot, "alpha", 0, 1, 0));
-        set.setDuration(1000);
-        set.setStartDelay((long) (Math.random() * 1000));
-        set.addListener(new Animator.AnimatorListener() {
+        set.playTogether(ObjectAnimator.ofFloat(dot, "translationY", 0f, -this.getMeasuredHeight())
+                , ObjectAnimator.ofFloat(dot, "alpha", 0f, 1f, 0f)
+                , ObjectAnimator.ofFloat(dot, "scaleX", 2f, 1f)
+                , ObjectAnimator.ofFloat(dot, "scaleY", 2f, 1f));
+        AnimatorSet set1 = new AnimatorSet();
+        set1.playTogether(ObjectAnimator.ofFloat(dot, "scaleX", 1f, 4f)
+                , ObjectAnimator.ofFloat(dot, "scaleY", 1f, 4f));
+
+        AnimatorSet first = new AnimatorSet();
+        first.play(set).after(set1);
+        first.setDuration(1500);
+        first.setStartDelay((long) (Math.random() * 2000));
+        first.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
                 dot.setVisibility(VISIBLE);
@@ -63,8 +70,7 @@ public class BubbleUpViewGroup extends RelativeLayout {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                if (destroy)
-                    return;
+                if (destroy) return;
                 dot.clearAnimation();
                 BubbleUpViewGroup.this.removeView(dot);
                 startBubbleUpView();
@@ -78,14 +84,14 @@ public class BubbleUpViewGroup extends RelativeLayout {
             public void onAnimationRepeat(Animator animator) {
             }
         });
-        set.start();
+        first.start();
     }
 
     public void clear() {
         destroy = true;
         int count = this.getChildCount();
         if (count > 0) {
-            for (int i = 0 ; i < count; i ++) {
+            for (int i = 0; i < count; i++) {
                 getChildAt(i).clearAnimation();
             }
         }
