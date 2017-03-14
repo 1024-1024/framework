@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:gravity="center"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:baselineAligned="false">
 
     
     
-    <com.zwl.animation.view.BubbleUpViewGroup
+    <!--<com.zwl.animation.view.BubbleUpViewGroup-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="70dp">-->
+    <!--</com.zwl.animation.view.BubbleUpViewGroup>-->
+
+    <View
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <com.zwl.animation.view.BubbleSurfaceView
+        android:id="@+id/surfaceView"
         android:layout_width="100dp"
-        android:layout_height="70dp">
-    </com.zwl.animation.view.BubbleUpViewGroup>
+        android:layout_centerInParent="true"
+        android:layout_height="80dp"/>
 
 
-    <com.zwl.animation.view.BubbleView
-        android:layout_width="20dp"
-        android:layout_height="20dp"/>
-</LinearLayout>
+
+</RelativeLayout>
