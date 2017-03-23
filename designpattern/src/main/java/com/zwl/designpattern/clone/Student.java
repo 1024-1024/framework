@@ -1,5 +1,7 @@
 package com.zwl.designpattern.clone;
 
+import java.util.ArrayList;
+
 /**
  * Created by weilongzhang on 17/3/23.
  */
@@ -8,6 +10,7 @@ public class Student implements Cloneable{
     String name;
     int age;
     Professor professor;
+    public ArrayList list;
 
     public Student(String name, int age) {
         this.name = name;
@@ -18,6 +21,17 @@ public class Student implements Cloneable{
         this.name = name;
         this.age = age;
         this.professor = professor;
+    }
+
+    public Student(String name, int age, Professor professor, ArrayList list) {
+        this.name = name;
+        this.age = age;
+        this.professor = professor;
+        this.list = list;
+    }
+
+    public Student(ArrayList list) {
+        this.list = list;
     }
 
     public String getName() {
@@ -52,6 +66,7 @@ public class Student implements Cloneable{
             e.printStackTrace();
         }
         o.professor = (Professor) professor.clone();
+        o.list = (ArrayList) list.clone();
         return o;
     }
 
@@ -61,6 +76,7 @@ public class Student implements Cloneable{
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", professor=" + professor +
+                ", list=" + list +
                 '}';
     }
 }

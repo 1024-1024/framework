@@ -10,6 +10,8 @@ import com.zwl.designpattern.clone.Student;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -46,6 +48,17 @@ public class ExampleInstrumentedTest {
         Student s = (Student) student.Clone();
         s.setAge(99);
         s.setProfessor(new Professor("jfeiji"));
+        assertEquals(student, s);
+    }
+
+    @Test
+    public void deepCloneArrayList() {
+        Professor professor = new Professor("professor1");
+        ArrayList<String> a = new ArrayList<>();
+        a.add("afawef");
+        Student student = new Student("name", 90, professor, a);
+        Student s = (Student) student.Clone();
+        s.list.add("222");
         assertEquals(student, s);
     }
 
