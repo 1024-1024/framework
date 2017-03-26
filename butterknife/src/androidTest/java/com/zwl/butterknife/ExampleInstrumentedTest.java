@@ -1,4 +1,4 @@
-package com.zwl.bufferknife;
+package com.zwl.butterknife;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

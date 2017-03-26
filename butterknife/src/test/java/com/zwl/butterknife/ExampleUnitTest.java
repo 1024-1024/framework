@@ -1,4 +1,4 @@
-package com.zwl.bufferknife;
+package com.zwl.butterknife;
 
 import org.junit.Test;
 

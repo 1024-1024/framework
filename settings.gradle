@@ -1,1 +1,1 @@
-include ':app', ':util', ':test', ':animation', ':designpattern', ':dbutils', ':http', ':android-volley-master', ':widget', ':module', ':glide', ':rxjava', ':ljson', ':butterknife'
+include ':app', ':util', ':test', ':animation', ':designpattern', ':dbutils', ':http', ':android-volley-master', ':widget', ':module', ':glide', ':rxjava', ':ljson', ':butterknife', ':inject-compiler'
