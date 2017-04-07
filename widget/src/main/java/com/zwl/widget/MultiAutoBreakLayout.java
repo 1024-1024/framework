@@ -1,66 +1,123 @@
 package com.zwl.widget;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 public class MultiAutoBreakLayout extends ViewGroup {
+
+    private int interval = 2;//按钮之间的间隔
     private final static String TAG = "MultiAutoBreakLayout";
-    private final static int VIEW_MARGIN = 2;
+    private Context mContext;
+    private int totalHeight;
+    private int pL;
+    private int pR;
+    private int pT;
+    private int pB;
+
+
+    private Paint mPaint;
+    private int row;
+    private int viewGroupWidth;
+
 
     public MultiAutoBreakLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
     public MultiAutoBreakLayout(Context context) {
         super(context);
+        init(context);
+    }
+
+    private void init(Context context) {
+        this.mContext = context;
+    }
+
+    public void setInterval(int interval) {
+        this.interval = interval;
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        Log.d(TAG, "widthMeasureSpec = " + widthMeasureSpec + " heightMeasureSpec = " +
-                heightMeasureSpec);
-
+        super.onMeasure(widthMeasureSpec , heightMeasureSpec);
+        pL = getPaddingLeft();
+        pR = getPaddingRight();
+        pT = getPaddingTop();
+        pB = getPaddingBottom();
+        totalHeight = 0;
+        viewGroupWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int tempWidth = 0;
         for (int index = 0; index < getChildCount(); index++) {
             final View child = getChildAt(index);
             // measure
             child.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
+            int childHeight = child.getMeasuredHeight();
+            int childWidth = child.getMeasuredWidth();
+            if (tempWidth + childWidth + interval> viewGroupWidth - pL - pR) {
+                totalHeight += childHeight;
+                tempWidth = childWidth + interval;
+            } else {
+                tempWidth += childWidth + interval;
+                if (totalHeight == 0) {
+                    totalHeight += childHeight;
+                }
+            }
         }
-
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        totalHeight = totalHeight + pB + pT;
+        Log.d("zwl", "setMeasuredDimension(viewGroupWidth, totalHeight);" + viewGroupWidth + ":" + totalHeight);
+        setMeasuredDimension(viewGroupWidth, totalHeight);
     }
 
-    private int interval = 10;//按钮之间的间隔
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        int count = getChildCount();
+        row = 0;
+        int tempW = 0;
+        for (int i = 0; i < count; i++) {
+            View childView = getChildAt(i);
+            int childWidth = childView.getMeasuredWidth();
+            int childHeight = childView.getMeasuredHeight();
+            if (i == 0) {
+                childView.layout(pL, pT, pL + childWidth, pT + childHeight);
+                tempW += childWidth + interval;
+            } else {
+                if (tempW + pL + pR + childWidth + interval> viewGroupWidth) {
+                    row++;
+                    childView.layout(pL, pT + row * childHeight, pL + childWidth, pT + row *
+                            childHeight + childHeight);
+                    tempW = childWidth + interval;
+                } else {
+                    childView.layout(pL + tempW, row * childHeight + pT, pL + tempW + childWidth,
+                            row * childHeight + pT + childHeight);
+                    tempW += childWidth + interval;
+                }
+            }
+
+        }
+    }
 
     @Override
-    protected void onLayout(boolean arg0, int arg1, int arg2, int arg3, int arg4) {
-        Log.d(TAG, "changed = " + arg0 + " left = " + arg1 + " top = " + arg2 + " right = " +
-                arg3 + " botom = " + arg4);
-        final int count = getChildCount();
-        int row = 0;// which row lay you view relative to parent
-        int lengthX = arg1;    // right position of child relative to parent
-        int lengthY = arg2;    // bottom position of child relative to parent
-        for (int i = 0; i < count; i++) {
-
-            final View child = this.getChildAt(i);
-            int width = child.getMeasuredWidth();
-            int height = child.getMeasuredHeight();
-            if (i == 0) {
-                lengthX += width + VIEW_MARGIN;//第一个的时候不需要加
-            } else {
-                lengthX += width + VIEW_MARGIN + interval;//按钮之间的间隔
-            }
-            lengthY = row * (height + VIEW_MARGIN) + VIEW_MARGIN + height + arg2;
-            //if it can't drawing on a same line , skip to next line
-            if (lengthX > arg3) {
-                lengthX = width + VIEW_MARGIN + arg1;
-                row++;
-                lengthY = row * (height + VIEW_MARGIN) + VIEW_MARGIN + height + arg2;
-            }
-            child.layout(lengthX - width, lengthY - height, lengthX, lengthY);
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+        if (row == 0 || mPaint == null) {
+            return;
         }
+        int tempHeight = (totalHeight - pT - pB) / (row + 1);
+        for (int i = 1; i <= row; i ++) {
+            canvas.drawLine(pL, tempHeight * i + pT, viewGroupWidth - pR, tempHeight * i + pT, mPaint);
+        }
+    }
+
+    public void setLineStyle(int color, int i) {
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(color);
+        mPaint.setStrokeWidth(i);
     }
 }

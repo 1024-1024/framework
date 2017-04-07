@@ -10,30 +10,65 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.zwl.test.MainActivity">
+
     <LinearLayout
         android:id="@+id/lll"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
             android:onClick="addText"
             android:text="add TextView"
-            android:gravity="center"
-            android:textColor="@color/selector_color"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:textColor="@color/selector_color"/>
+
         <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:onClick="add"
             android:text="add"
-            android:textColor="@color/selector_color"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:textColor="@color/selector_color"/>
+
         <com.zwl.widget.AutoBreakLayout
             android:id="@+id/AutoBreakLayout"
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         </com.zwl.widget.AutoBreakLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="fawefwae"/>
+
+            <com.zwl.widget.MultiAutoBreakLayout
+                android:id="@+id/bl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/tv1"
+                android:layout_toRightOf="@id/tv">
+            </com.zwl.widget.MultiAutoBreakLayout>
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="fawefjoio"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
 </ScrollView>
