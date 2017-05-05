@@ -36,7 +36,6 @@ public class TestActivity extends Activity {
             textView.setText("waimian" + i);
             breakLayout.addView(textView);
         }
-
         LinearLayout ll_layout = (LinearLayout) findViewById(R.id.ll_layout);
         List<String> titles = new ArrayList<String>();
         titles.add("落(li)");
