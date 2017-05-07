@@ -2,37 +2,22 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Framework.iml" filepath="$PROJECT_DIR$/Framework.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-volley-master/android-volley-master.iml" filepath="$PROJECT_DIR$/android-volley-master/android-volley-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/android-volley-master/android-volley-master.iml" filepath="$PROJECT_DIR$/android-volley-master/android-volley-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/animation/animation.iml" filepath="$PROJECT_DIR$/animation/animation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/animation/animation.iml" filepath="$PROJECT_DIR$/animation/animation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/butterknife/butterknife.iml" filepath="$PROJECT_DIR$/butterknife/butterknife.iml" />
-      <module fileurl="file://$PROJECT_DIR$/butterknife/butterknife.iml" filepath="$PROJECT_DIR$/butterknife/butterknife.iml" />
       <module fileurl="file://$PROJECT_DIR$/dbutils/dbutils.iml" filepath="$PROJECT_DIR$/dbutils/dbutils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/dbutils/dbutils.iml" filepath="$PROJECT_DIR$/dbutils/dbutils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/designpattern/designpattern.iml" filepath="$PROJECT_DIR$/designpattern/designpattern.iml" />
       <module fileurl="file://$PROJECT_DIR$/designpattern/designpattern.iml" filepath="$PROJECT_DIR$/designpattern/designpattern.iml" />
       <module fileurl="file://$PROJECT_DIR$/framework.iml" filepath="$PROJECT_DIR$/framework.iml" />
       <module fileurl="file://$PROJECT_DIR$/glide/glide.iml" filepath="$PROJECT_DIR$/glide/glide.iml" />
-      <module fileurl="file://$PROJECT_DIR$/glide/glide.iml" filepath="$PROJECT_DIR$/glide/glide.iml" />
-      <module fileurl="file://$PROJECT_DIR$/http/http.iml" filepath="$PROJECT_DIR$/http/http.iml" />
       <module fileurl="file://$PROJECT_DIR$/http/http.iml" filepath="$PROJECT_DIR$/http/http.iml" />
       <module fileurl="file://$PROJECT_DIR$/inject-compiler/inject-compiler.iml" filepath="$PROJECT_DIR$/inject-compiler/inject-compiler.iml" />
-      <module fileurl="file://$PROJECT_DIR$/inject-compiler/inject-compiler.iml" filepath="$PROJECT_DIR$/inject-compiler/inject-compiler.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ljson/ljson.iml" filepath="$PROJECT_DIR$/ljson/ljson.iml" />
       <module fileurl="file://$PROJECT_DIR$/ljson/ljson.iml" filepath="$PROJECT_DIR$/ljson/ljson.iml" />
       <module fileurl="file://$PROJECT_DIR$/module/module.iml" filepath="$PROJECT_DIR$/module/module.iml" />
-      <module fileurl="file://$PROJECT_DIR$/module/module.iml" filepath="$PROJECT_DIR$/module/module.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rxjava/rxjava.iml" filepath="$PROJECT_DIR$/rxjava/rxjava.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxjava/rxjava.iml" filepath="$PROJECT_DIR$/rxjava/rxjava.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ui/ui.iml" filepath="$PROJECT_DIR$/ui/ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/util/util.iml" filepath="$PROJECT_DIR$/util/util.iml" />
-      <module fileurl="file://$PROJECT_DIR$/util/util.iml" filepath="$PROJECT_DIR$/util/util.iml" />
-      <module fileurl="file://$PROJECT_DIR$/widget/widget.iml" filepath="$PROJECT_DIR$/widget/widget.iml" />
       <module fileurl="file://$PROJECT_DIR$/widget/widget.iml" filepath="$PROJECT_DIR$/widget/widget.iml" />
     </modules>
   </component>
