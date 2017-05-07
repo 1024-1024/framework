@@ -1,1 +1,10 @@
-1,高级UI
+高级UI
+一，从setContentView开始，了解view的加载过程
+    疑问：
+        1，setContentView到底做了些什么，为什么调用后就可以显示出我们想要的布局页面
+        2，PhoneWindow是什么东西，window和它的关系
+        3，DecorView是干什么的，和我们的布局有什么关系
+        4，requestFeature为什么要在setContentView之前调用
+        5，LayoutInflater 到底怎么把xml添加到decorView
+            include 为什么不能xml资源布局的根节点
+            merge 为什么作为xml资源布局的根节点
