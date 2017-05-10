@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        setStatusBarColor(R.color.colorAccent));
-//        setStatusBarTrans();
+//        setStatusBarColor(R.color.blue);
+        setStatusBarTrans();
 //        setFullScreen();
     }
 
