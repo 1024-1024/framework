@@ -9,14 +9,19 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+/**
+ * @author zhangweilong
+ * {@link http://www.jianshu.com/p/f4b278b98b17}
+ * @see <a href="status bar 详细地址">http://www.jianshu.com/p/f4b278b98b17</>
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        setStatusBarColor(R.color.blue);
-        setStatusBarTrans();
+        setStatusBarColor(R.color.colorAccent);
+//        setStatusBarTrans();
 //        setFullScreen();
     }
 
@@ -77,5 +82,23 @@ public class MainActivity extends AppCompatActivity {
         statusView.setLayoutParams(params);
         statusView.setBackgroundColor(color);
         return statusView;
+    }
+
+
+    /**
+     * 更有效的方法
+     */
+    private void hideStatusBar() {
+        // If the Android version is lower than Jellybean, use this call to hide
+        // the status bar.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        } else {
+            View decorView = this.getWindow().getDecorView();
+            // Hide the status bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
     }
 }
