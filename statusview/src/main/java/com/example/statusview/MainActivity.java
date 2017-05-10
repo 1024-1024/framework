@@ -15,11 +15,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        setStatusBarColor(R.color.colorAccent));
+//        setStatusBarTrans();
+//        setFullScreen();
+    }
+
+    /**
+     * 设置全屏
+     */
+    private void setFullScreen() {
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
+
+    /**
+     * 设置状态栏为透明，让图片可以显示出来
+     */
+    private void setStatusBarTrans() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            // 设置状态栏透明
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+    }
+
+
+    /**
+     *  设置状态栏的原色
+     */
+    private void setStatusBarColor(int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // 设置状态栏透明
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             // 生成一个状态栏大小的矩形
-            View statusView = createStatusView(this, getResources().getColor(R.color.colorAccent));
+            View statusView = createStatusView(this, getResources().getColor(color));
             // 添加 statusView 到布局中
             ViewGroup decorView = (ViewGroup) this.getWindow().getDecorView();
             decorView.addView(statusView);
